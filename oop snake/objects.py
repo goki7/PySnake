@@ -10,7 +10,7 @@ class Snake:
         self.rect = pg.rect.Rect([0, 0, game.TILE_SIZE - 2, game.TILE_SIZE - 2])
         self.rect.center = self.get_random_position()
         self.direction = vec2(0, 0)
-        self.step_delay = 300 # milliseconds
+        self.step_delay = 100 # milliseconds
         self.time = 0
         self.length = 1
         self.body = []
@@ -55,6 +55,8 @@ class Snake:
         if self.rect.center == self.game.food.rect.center:
             self.game.food.rect.center = self.get_random_position()
             self.length += 1
+            self.game.score += 1
+            self.game.score_text = self.game.font.render(f"SCORE: {self.game.score}", True, (255, 255, 255))
 
     def check_cannibalism(self):
         if len(self.body) != len(set(segment.center for segment in self.body)):
